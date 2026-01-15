@@ -3,14 +3,24 @@ package utils;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import java.io.File;
+
 public class ExtentManager {
-	public static ExtentReports getReport() {
 
-        ExtentSparkReporter reporter =
-                new ExtentSparkReporter("reports/extent-report.html");
+    private static ExtentReports extent;
 
-        ExtentReports extent = new ExtentReports();
-        extent.attachReporter(reporter);
+    public static ExtentReports getReport() {
+
+        if (extent == null) {
+
+            String reportPath = System.getProperty("user.dir")
+                    + File.separator + "reports"
+                    + File.separator + "extent-report.html";
+
+            ExtentSparkReporter spark = new ExtentSparkReporter(reportPath);
+            extent = new ExtentReports();
+            extent.attachReporter(spark);
+        }
         return extent;
     }
 }
