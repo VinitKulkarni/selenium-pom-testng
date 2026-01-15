@@ -3,8 +3,6 @@ name: Selenium Test
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   test:
@@ -21,3 +19,9 @@ jobs:
 
       - name: Run Tests
         run: mvn clean test
+
+      - name: Upload Extent Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Extent-Report
+          path: reports/extent-report.html
